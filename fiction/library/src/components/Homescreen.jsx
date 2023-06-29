@@ -5,14 +5,17 @@ const Homescreen = () => {
   const [data, setData] = useState([]);
   const [addBookForm, setAddBookForm] = useState(false);
 
-  async function postJSON(data) {
-    const response = await fetch("http://127.0.0.1:8000/books/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+  async function postJSON(bookData) {
+    const response = await fetch(
+      "http://localhost:8000/books/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookData),
+      }
+    );
     if (response.ok) {
       const result = await response.json();
       console.log("Success:", result);
@@ -26,7 +29,7 @@ const Homescreen = () => {
     try {
       const response = await response.json("http://127.0.0.1:8000/books/");
       const data = await response.json();
-      setData(data);
+      setData(bookData);
     } catch (error) {
       console.error(error);
     }

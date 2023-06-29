@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 # from rest_framework import APIView
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from rest_framework.viewsets import ModelViewSet
 from .serializers import BookSerializer
 from .models import Book
@@ -21,5 +21,9 @@ def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.method == 'DELETE':
         book.delete()
+def add_book(request):
+    if request.method == 'POST':
+        json_data = request.POST.get()
+    return render(request, 'frontend/index.html')
         
     

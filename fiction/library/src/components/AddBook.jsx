@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 export default function AddBook({ handleAddBook }) {
   const [bookData, setBookData] = useState({
-    book_title: "",
-    book_author: "",
-    book_description: "",
+    title: "",
+    author: "",
+    description: "",
   });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -18,9 +18,9 @@ export default function AddBook({ handleAddBook }) {
     e.preventDefault();
     handleAddBook(bookData);
     setBookData({
-      book_title: "",
-      book_author: "",
-      book_description: "",
+      title: "",
+      author: "",
+      description: "",
     });
     // resets the form after submitting
   };
@@ -31,32 +31,32 @@ export default function AddBook({ handleAddBook }) {
         Book Title{" "}
         <input
           type="text"
-          name="book_title"
-          requiredvalue={bookData.book_title}
+          name="title"
+          requiredvalue={bookData.title}
           onChange={handleInputChange}
         />
         Author{" "}
         <input
           type="text"
-          name="book_author"
-          value={bookData.book_author}
+          name="author"
+          value={bookData.author}
           onChange={handleInputChange}
         />
         Description{" "}
         <input
           type="text"
-          name="book_description"
-          value={bookData.book_description}
+          name="description"
+          value={bookData.description}
           onChange={handleInputChange}
         />
         <button type="submit">Add Book</button>
       </form>
-      {bookData.map((addBook) => (
+      {/* {bookData.map((addBook) => (
         <>
           <h1>Title: {addBook.title}</h1>
           <p>Description: {addBook.description}</p>
         </>
-      ))}
+      ))} */}
     </>
   );
 }
