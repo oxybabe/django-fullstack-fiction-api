@@ -1,5 +1,6 @@
 # from django.shortcuts import render
 # from rest_framework import APIView
+from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ModelViewSet
 from .serializers import BookSerializer
 from .models import Book
@@ -15,3 +16,10 @@ from .models import Book
 class BookViewSet(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    
+def delete_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    if request.method == 'DELETE':
+        book.delete()
+        
+    
