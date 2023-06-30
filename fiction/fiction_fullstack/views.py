@@ -17,19 +17,20 @@ class BookViewSet(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     
-def delete_book(request, id):
-    book = get_object_or_404(Book, id=id)
-    if request.method == 'DELETE':
-        book.delete()
+def update_book(request, id):
+    if request.method == 'PUT':
+        json_data = request.PUT.get()
+    return render(request, 'frontend/index.html')
         
 def add_book(request):
     if request.method == 'POST':
         json_data = request.POST.get()
     return render(request, 'frontend/index.html')
 
-# def delete_book(request):
-#     if request.method == 'DELETE':
-#         json_data = request.DELETE.get()
-#     return render(request, 'frontend/index.html')
+def delete_book(request, id):
+    id = id
+    if request.method == 'DELETE':
+        json_data = request.DELETE.get()
+    return render(request, 'frontend/index.html', {'id':id})
         
-    
+# https://www.youtube.com/watch?v=K8C2f1_e9VU    
