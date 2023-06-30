@@ -51,12 +51,7 @@ export default function AddBook({ handleAddBook }) {
         />
         <button type="submit">Add Book</button>
       </form>
-      {/* {bookData.map((addBook) => (
-        <>
-          <h1>Title: {addBook.title}</h1>
-          <p>Description: {addBook.description}</p>
-        </>
-      ))} */}
+      
     </>
   );
 }

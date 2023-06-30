@@ -28,5 +28,5 @@ URLPattern
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)), 
-    path('books/<int:book_id>', delete_book, name="delete_book")
+    path('books/<int:id>', delete_book, name="delete_book")
 ]

@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 import AddBook from "./AddBook";
+import DeleteBook from "./DeleteBook";
 
 const Homescreen = () => {
   const [data, setData] = useState([]);
   const [addBookForm, setAddBookForm] = useState(false);
+  // const [deleteBook, setDeleteBook] = useState();
 
   async function postJSON(bookData) {
-    const response = await fetch(
-      "http://localhost:8000/books/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bookData),
-      }
-    );
+    const response = await fetch("http://localhost:8000/books/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookData),
+    });
     if (response.ok) {
       const result = await response.json();
       console.log("Success:", result);
@@ -57,10 +56,11 @@ const Homescreen = () => {
     <div>
       {/*Display fetched data*/}
 
-      {data.map((item) => (
-        <>
-          <div key={item.id}>{item.title}</div>
-        </>
+      {data.map((book) => (
+        <div key={book.id}>
+          <div>Title: {book.title}</div>
+          <DeleteBook handleDeleteBook={book.id} />
+        </div>
       ))}
       {addBookForm ? (
         <AddBook handleAddBook={handleAddBook} />
@@ -70,4 +70,5 @@ const Homescreen = () => {
     </div>
   );
 };
+
 export default Homescreen;
