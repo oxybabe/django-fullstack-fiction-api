@@ -32,7 +32,7 @@ export default function AddBook({ handleAddBook }) {
         <input
           type="text"
           name="title"
-          requiredvalue={bookData.title}
+          value={bookData.title}
           onChange={handleInputChange}
         />
         Author{" "}
@@ -51,7 +51,6 @@ export default function AddBook({ handleAddBook }) {
         />
         <button type="submit">Add Book</button>
       </form>
-      
     </>
   );
 }
