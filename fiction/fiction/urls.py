@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import URLPattern, path, include
 from rest_framework import routers
-from fiction_fullstack.views import BookViewSet
-from fiction_fullstack.views import *
+
+from fiction_fullstack.views import BookViewSet, delete_book, update_book
+
+
 
 router = routers.DefaultRouter()
 router.register(r'books', BookViewSet)

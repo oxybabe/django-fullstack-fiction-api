@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AddBook from "./AddBook";
+import UpdateBook from "./UpdateBook";
 // import UpdateBook from "./UpdateBook";
 // import DeleteBook from "./DeleteBook";
 
 const Homescreen = () => {
   const [data, setData] = useState([]);
   const [addBookForm, setAddBookForm] = useState(false);
+  const [updateBookForm, setUpdateBookForm] = useState(false);
 
   async function postJSON(bookData) {
     const response = await fetch("http://localhost:8000/books/", {
@@ -82,30 +84,33 @@ const Homescreen = () => {
     return <button onClick={deleteData}>Delete Book</button>;
   };
 
-  // const handleUpdateBook = async (bookId) => {
-  //   const url = `http://localhost:8000/books/${bookId}`;
-  //   const title = { key: book.title };
-  //   const description = { key: book.description };
+  const handleUpdateBook = async (bookData) => {
+    // const url = `http://localhost:8000/books/${bookId}/`;
+    // const title = { key: title };
+    // const description = { key: description };
 
-  //   try {
-  //     const response = await fetch(`http://127.0.0.1:8000/books/${bookId}/`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ title, description }),
-  //     });
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/books/update/${bookData.id}/`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bookData),
+        }
+      );
 
-  //     if (response.ok) {
-  //       console.log("Book updated!");
-  //     } else {
-  //       console.log("Failed to update book");
-  //     }
-  //   } catch (error) {
-  //     console.log("An error occurred while updating book:", error);
-  //   }
-  //   return <button onClick={handleUpdateBook}>Edit Book</button>;
-  // };
+      if (response.ok) {
+        console.log("Book updated!");
+      } else {
+        console.log("Failed to update book");
+      }
+    } catch (error) {
+      console.log("An error occurred while updating book:", error);
+    }
+    // return <button onClick={handleUpdateBook}>Edit Book</button>;
+  };
 
   return (
     <div>
@@ -116,8 +121,11 @@ const Homescreen = () => {
           <div>Title: {book.title}</div>
           <div>Description: {book.description}</div>
           <DeleteBook handleDeleteBook={book.id} />
-          {/* <UpdateBook/> */}
-          {/* <button onClick={() => UpdateBook(true)}>Update Book</button> */}
+          {updateBookForm ? (
+            <UpdateBook book={book} handleUpdateBook={handleUpdateBook} />
+          ) : (
+            <button onClick={() => setUpdateBookForm(true)}>Edit Book</button>
+          )}
         </div>
       ))}
       {addBookForm ? (
