@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework.viewsets import ModelViewSet
 from .serializers import BookSerializer
 from .models import Book
+from rest_framework import generics
 
 # Create your views here.
 
@@ -18,9 +19,10 @@ class BookViewSet(ModelViewSet):
     serializer_class = BookSerializer
     
 def update_book(request, id):
+    id = id
     if request.method == 'PUT':
         json_data = request.PUT.get()
-    return render(request, 'frontend/index.html')
+    return render(request, 'frontend/index.html', {'id':id})
         
 def add_book(request):
     if request.method == 'POST':
@@ -32,5 +34,10 @@ def delete_book(request, id):
     if request.method == 'DELETE':
         json_data = request.DELETE.get()
     return render(request, 'frontend/index.html', {'id':id})
+
+# class BookUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializer    
+
         
 # https://www.youtube.com/watch?v=K8C2f1_e9VU    
