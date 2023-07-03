@@ -31,6 +31,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)), 
     path('books/<int:id>', delete_book, name="delete_book"), 
-    path('update/<int:id>', update_book, name="update_book")
+    path('books/update/<int:id>', update_book, name="update_book"), 
+    
 
 ]

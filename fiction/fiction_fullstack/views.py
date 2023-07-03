@@ -19,9 +19,12 @@ class BookViewSet(ModelViewSet):
     serializer_class = BookSerializer
     
 def update_book(request, id):
-    id = id
-    if request.method == 'PUT':
-        json_data = request.PUT.get()
+    book = get_object_or_404(Book, id=id)
+    if request.method == 'PATCH':
+        book.title = request.PATCH.get('title', book.title)
+        book.description = request.PATCH.get('description', book.description)
+        book.save()
+        # json_data = request.PATCH.get(id=id)
     return render(request, 'frontend/index.html', {'id':id})
         
 def add_book(request):
