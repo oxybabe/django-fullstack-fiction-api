@@ -2,8 +2,6 @@ import { useState } from "react";
 import React from "react";
 
 export default function UpdateBook({ book, handleUpdateBook }) {
-  // const [updateBook, setUpdateBook] = useState(false);
-
   const [bookData, setBookData] = useState(book);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -13,7 +11,7 @@ export default function UpdateBook({ book, handleUpdateBook }) {
     }));
     //creates a new object by spreading the properties of prevState and then adding the [name] property with the value obtained from the input field
   };
-  const handleFormSubmit = (e) => {
+  const editFormSubmit = (e) => {
     e.preventDefault();
     handleUpdateBook(bookData);
     setBookData({
@@ -27,7 +25,7 @@ export default function UpdateBook({ book, handleUpdateBook }) {
   return (
     <>
       <div>Edit Book</div>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={editFormSubmit}>
         Book Title{" "}
         <input
           type="text"
@@ -49,7 +47,7 @@ export default function UpdateBook({ book, handleUpdateBook }) {
           value={bookData.description}
           onChange={handleInputChange}
         />
-        <button type="submit">Edit Book</button>
+        <button type="submit">Submit Change</button>
       </form>
     </>
   );
