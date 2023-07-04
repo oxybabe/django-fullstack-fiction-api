@@ -60,7 +60,7 @@ const Homescreen = () => {
     }
   };
 
-  const handleUpdateBook = async (id) => {
+  const handleUpdateBook = async (id, bookData) => {
     try {
       const response = await fetch(
         `http://127.0.0.1:8000/books/update/${id}/`,
@@ -68,8 +68,9 @@ const Homescreen = () => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            // "X-CSRFToken": csrftoken,
           },
-          body: JSON.stringify(id),
+          body: JSON.stringify(bookData),
         }
       );
 
@@ -96,57 +97,12 @@ const Homescreen = () => {
           <div>Title: {book.title}</div>
           <div>Description: {book.description}</div>
           <button onClick={() => deleteBook(book.id)}>Delete Book</button>
-          {/* {isEditing ? (
-            <form>
-              <li key={book.id}>
-                <input
-                  type="text"
-                  name="title"
-                  requiredvalue={editedBook.title}
-                  onChange={(e) =>
-                    setEditedBook({ ...editedBook, title: e.target.value })
-                  }
-                />
-                <input
-                  name="description"
-                  type="text"
-                  value={editedBook.description}
-                  onChange={(e) =>
-                    setEditedBook({
-                      ...editedBook,
-                      author: e.target.value,
-                    })
-                  }
-                >
-                  author: {book.description}
-                </input>
-                <button
-                  onClick={() => {
-                    handleUpdateBook(editedBook), setEditedBook(false);
-                  }}
-                  type="update"
-                >
-                  Update
-                </button>
-              </li>
-            </form>
-          ) : (
-            <button
-              onClick={() => {
-                setIsEditing(true) 
-              }} type="update"
-            >
-              Edit Book
-            </button>
-          )} */}
 
           {isEditing ? (
             <UpdateBook
-              onChange={(e) =>
-                setEditedBook({ ...editedBook, title: e.target.value })
-              }
               book={book}
               handleUpdateBook={handleUpdateBook}
+              setIsEditing={setIsEditing}
             />
           ) : (
             <button onClick={() => setIsEditing(true)}>Edit Book</button>

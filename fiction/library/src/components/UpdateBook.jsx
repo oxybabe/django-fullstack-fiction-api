@@ -1,16 +1,11 @@
 import { useState } from "react";
 import React from "react";
 
-export default function UpdateBook({ book, handleUpdateBook }) {
+export default function UpdateBook({ book, handleUpdateBook, setIsEditing }) {
   const [bookData, setBookData] = useState(book);
   const editFormSubmit = (e) => {
-    // const { name, value } = e.target;
-    // setBookData((editedBook) => ({
-    //   ...editedBook,
-    //   [name]: value,
-    // }));
     e.preventDefault();
-    handleUpdateBook(bookData);
+    handleUpdateBook(book.id, bookData);
     setBookData({
       id: "",
       title: "",
@@ -30,22 +25,25 @@ export default function UpdateBook({ book, handleUpdateBook }) {
           value={bookData.title}
           onChange={(e) => setBookData({ ...bookData, title: e.target.value })}
         />
-        {/* Author{" "}
-        <input
-          type="text"
-          name="author"
-          value={bookData.author}
-          onChange={handleInputChange}
-        />
         Description{" "}
         <input
           type="text"
           name="description"
           value={bookData.description}
-          onChange={handleInputChange}
-        /> */}
+          onChange={(e) =>
+            setBookData({ ...bookData, description: e.target.value })
+          }
+        />
         <button type="submit">Submit Change</button>
       </form>
+      <button
+        onClick={() => {
+          console.log("here");
+          setIsEditing(false);
+        }}
+      >
+        Cancel
+      </button>
     </>
   );
 }

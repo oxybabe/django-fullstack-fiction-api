@@ -1,9 +1,13 @@
 # from django.shortcuts import render
 # from rest_framework import APIView
+import json
+from django.http import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from rest_framework.viewsets import ModelViewSet
 from .serializers import BookSerializer
 from .models import Book
+from django.views.decorators.http import require_http_methods
+
 # from rest_framework import generics
 
 # Create your views here.
@@ -19,13 +23,13 @@ class BookViewSet(ModelViewSet):
     serializer_class = BookSerializer
     
 def update_book(request, id):
-    book = get_object_or_404(Book, id=id)
     if request.method == 'PATCH':
-        book.title = request.PATCH.get('title', book.title)
-        book.description = request.PATCH.get('description', book.description)
-        book.save()
-        # json_data = request.PATCH.get(id=id)
-    return render(request, 'frontend/index.html', {'id':id})
+        Book.title = request.PATCH.get('title', Book.title)
+        Book.description = request.PATCH.get('description', Book.description)
+        Book.save()
+        return render(request, 'frontend/index.html', {'id':id})
+    else: return HttpResponseNotAllowed(['PATCH'])
+
         
 def add_book(request):
     if request.method == 'POST':

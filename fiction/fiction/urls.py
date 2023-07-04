@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import URLPattern, path, include
 from rest_framework import routers
 
-from fiction_fullstack.views import BookViewSet, delete_book, update_book
+from fiction_fullstack.views import BookViewSet, delete_book, update_book, add_book
 
 
 
@@ -31,7 +31,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)), 
     path('books/<int:id>', delete_book, name="delete_book"), 
-    path('books/update/<int:id>', update_book, name="update_book"), 
+    path('books/', add_book, name="add_book"),
+    path('books/update/<int:id>/', update_book, name="update_book"), 
     
 
 ]
